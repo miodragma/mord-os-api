@@ -7,6 +7,8 @@ const User = require('../models/user');
 
 const authController = require('../controllers/auth');
 
+const isAuth = require('../middleware/is-auth');
+
 router.put('/signup', [
     body('email')
       .isEmail()
@@ -34,5 +36,6 @@ router.put('/signup', [
 );
 
 router.post('/login', authController.login);
+router.get('/user', isAuth, authController.getUser);
 
 module.exports = router;
