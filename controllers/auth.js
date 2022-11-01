@@ -62,8 +62,38 @@ exports.login = async (req, res, next) => {
       },
       'mordosSecretKeyForJWT',
       { expiresIn: '1h' });
-    const loggedUser = { name: user.name, userId: user.id };
-    res.status(201).json({ token, user: loggedUser })
+    const loggedUser = { name: user.name, userId: user.id, token };
+    res.status(201).json({ user: loggedUser })
+
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+exports.getUser = async (req, res, next) => {
+
+  try {
+
+    const userId = req.userId;
+    const user = await User.findByPk(userId)
+    if (!user) {
+      const error = new Error('A user with this email could not be found');
+      error.statusCode = 401;
+      throw error;
+    }
+
+    const token = jwt.sign(
+      {
+        email: user.email,
+        userId: user.id.toString()
+      },
+      'mordosSecretKeyForJWT',
+      { expiresIn: '1h' });
+    const loggedUser = { name: user.name, userId: user.id, token };
+    res.status(201).json({ user: loggedUser })
 
   } catch (err) {
     if (!err.statusCode) {
