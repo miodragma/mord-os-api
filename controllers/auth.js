@@ -91,7 +91,7 @@ exports.getUser = async (req, res, next) => {
         userId: user.id.toString()
       },
       `${process.env.JWT}`,
-      { expiresIn: '10000' });
+      { expiresIn: '1h' });
     const loggedUser = { name: user.name, userId: user.id, token };
     res.status(201).json({ user: loggedUser })
 
