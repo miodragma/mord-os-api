@@ -60,7 +60,7 @@ exports.login = async (req, res, next) => {
         email: user.email,
         userId: user.id.toString()
       },
-      'mordosSecretKeyForJWT',
+      `${process.env.JWT}`,
       { expiresIn: '1h' });
     const loggedUser = { name: user.name, userId: user.id, token };
     res.status(201).json({ user: loggedUser })
@@ -90,7 +90,7 @@ exports.getUser = async (req, res, next) => {
         email: user.email,
         userId: user.id.toString()
       },
-      'mordosSecretKeyForJWT',
+      `${process.env.JWT}`,
       { expiresIn: '1h' });
     const loggedUser = { name: user.name, userId: user.id, token };
     res.status(201).json({ user: loggedUser })

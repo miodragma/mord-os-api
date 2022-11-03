@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
   const token = authHeader.split(' ')[1];
   let decodeToken;
   try {
-    decodeToken = jwt.verify(token, 'mordosSecretKeyForJWT');
+    decodeToken = jwt.verify(token, `${process.env.JWT}`);
   } catch (err) {
     err.statusCode = 500;
     err.message = 'Not authenticated.'

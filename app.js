@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 
 const sequelize = require('./db/dabatase');
 
@@ -11,6 +12,7 @@ const authRoutes = require('./routes/auth');
 
 const app = express();
 
+app.use(helmet());
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
