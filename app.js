@@ -9,6 +9,14 @@ const errorMiddleware = require('./middleware/error');
 
 /* Routes */
 const authRoutes = require('./routes/auth');
+const fileRoutes = require('./routes/file');
+const groupRoutes = require('./routes/group');
+
+/* Models */
+const User = require('./models/user');
+const File = require('./models/file');
+const Group = require('./models/group');
+const UsersGroups = require('./models/users-groups');
 
 const app = express();
 
@@ -23,8 +31,20 @@ app.use((req, res, next) => {
 })
 
 app.use('/auth', authRoutes);
+app.use('/file', fileRoutes);
+app.use('/group', groupRoutes);
 
 app.use(errorMiddleware);
+
+File.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
+User.hasMany(File);
+
+File.belongsTo(Group, { constraints: true, onDelete: 'CASCADE' })
+Group.hasMany(File);
+
+User.belongsToMany(Group, { through: UsersGroups });
+Group.belongsToMany(User, { through: UsersGroups })
+
 
 sequelize.sync()
   .then(result => {
