@@ -14,7 +14,7 @@ exports.createGroup = async (req, res, next) => {
 
     const { name } = req.body;
 
-    const group = await new Group({
+    const group = await Group.build({
       name,
       createdBy: {
         userId: user.id,
@@ -23,7 +23,7 @@ exports.createGroup = async (req, res, next) => {
       }
     }).save();
 
-    await new UsersGroups({
+    await UsersGroups.build({
       userId,
       groupId: group.id
     }).save();

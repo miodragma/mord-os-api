@@ -66,7 +66,7 @@ exports.createOrUpdateFile = async (req, res, next) => {
 
       await file.save();
     } else {
-      file = await new File({
+      file = await File.build({
         name,
         value,
         userId,
