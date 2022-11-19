@@ -11,6 +11,7 @@ const errorMiddleware = require('./middleware/error');
 const authRoutes = require('./routes/auth');
 const fileRoutes = require('./routes/file');
 const groupRoutes = require('./routes/group');
+const memberRoutes = require('./routes/member');
 
 /* Models */
 const User = require('./models/user');
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
 app.use('/auth', authRoutes);
 app.use('/file', fileRoutes);
 app.use('/group', groupRoutes);
+app.use('/member', memberRoutes);
 
 app.use(errorMiddleware);
 
