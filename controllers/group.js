@@ -28,7 +28,7 @@ exports.createGroup = async (req, res, next) => {
       groupId: group.id
     }).save();
 
-    res.status(201).json({ message: 'Group created', group });
+    res.status(201).json({ message: `${group.name} Group created`, group });
 
   } catch (err) {
     if (!err.statusCode) {

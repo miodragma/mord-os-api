@@ -114,7 +114,7 @@ exports.addNewUserToGroup = async (req, res, next) => {
 
     await UsersGroups.bulkCreate(users);
 
-    res.status(200).json({ message: "Successfully added user" });
+    res.status(200).json({ message: "Successfully added user/s" });
 
   } catch (err) {
     if (!err.statusCode) {
@@ -158,7 +158,7 @@ exports.deleteUserFromGroup = async (req, res, next) => {
 
     await UsersGroups.destroy({ where: { userId: usersToDeleteIds, groupId } });
 
-    res.status(200).json({ message: "Successfully added user" });
+    res.status(200).json({ message: "Successfully removed user/s" });
 
   } catch (err) {
     if (!err.statusCode) {
